@@ -329,7 +329,7 @@ enum GoogleSignInError: LocalizedError {
 
 ## License
 
-This simplified implementation is provided as-is for educational and practical use.
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
