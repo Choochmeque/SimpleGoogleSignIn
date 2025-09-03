@@ -1,3 +1,8 @@
+![Swift](https://img.shields.io/badge/Swift-5.7+-orange.svg)
+![iOS](https://img.shields.io/badge/iOS-13.0+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)
+
 # SimpleGoogleSignIn
 
 A lightweight, dependency-free Google Sign-In implementation for iOS in pure Swift.
