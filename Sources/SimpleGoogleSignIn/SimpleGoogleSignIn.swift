@@ -206,7 +206,7 @@ public class SimpleGoogleSignIn: NSObject {
                     openIdToken: response.openIdToken?.tokenString ?? "",
                     accessToken: response.accessToken,
                     refreshToken: response.refreshToken ?? refreshToken,
-                    grantedScopes: []
+                    grantedScopes: response.scope?.components(separatedBy: " ") ?? []
                 )
 
                 DispatchQueue.main.async {
