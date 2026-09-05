@@ -52,6 +52,25 @@ public struct GoogleSignInConfiguration {
     }
 }
 
+// MARK: - Authorization Options
+
+/// Maps to the `access_type` OAuth parameter. `.offline` asks Google for a
+/// refresh token (granted on the user's first consent for this client).
+public enum GoogleAccessType: String {
+    case online
+    case offline
+}
+
+/// Maps to the `prompt` OAuth parameter. `.none` fails with an error when the
+/// user is not already authenticated; `.consent` forces the consent screen
+/// (and a fresh refresh token when combined with `.offline`).
+public enum GooglePrompt: String {
+    case none
+    case consent
+    case selectAccount = "select_account"
+    case consentAndSelectAccount = "consent select_account"
+}
+
 // MARK: - Token
 
 public struct GoogleToken {
@@ -105,6 +124,8 @@ public class SimpleGoogleSignIn: NSObject {
         presentingViewController: UIViewController,
         hint: String? = nil,
         scopes: [String],
+        accessType: GoogleAccessType = .offline,
+        prompt: GooglePrompt? = nil,
         completion: @escaping (Result<GoogleSignInResult, Error>) -> Void
     ) {
         guard let configuration = configuration else {
@@ -138,9 +159,13 @@ public class SimpleGoogleSignIn: NSObject {
             URLQueryItem(name: "state", value: state),
             URLQueryItem(name: "nonce", value: nonce),
             URLQueryItem(name: "include_granted_scopes", value: "true"),
-            URLQueryItem(name: "access_type", value: "offline")
+            URLQueryItem(name: "access_type", value: accessType.rawValue)
         ]
-        
+
+        if let prompt = prompt {
+            components.queryItems?.append(URLQueryItem(name: "prompt", value: prompt.rawValue))
+        }
+
         if let hint = hint {
             components.queryItems?.append(URLQueryItem(name: "login_hint", value: hint))
         }

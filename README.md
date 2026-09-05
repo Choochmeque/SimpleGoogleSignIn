@@ -105,7 +105,9 @@ SimpleGoogleSignIn.shared.configure(configuration: configuration)
 SimpleGoogleSignIn.shared.signIn(
     presentingViewController: viewController,
     hint: nil, // Optional: pre-fill email address
-    scopes: ["openid", "profile", "email"] // Required: OAuth scopes
+    scopes: ["openid", "profile", "email"], // Required: OAuth scopes
+    accessType: .offline, // Optional: .offline (default) requests a refresh token, .online skips it
+    prompt: nil // Optional: .consent forces the consent screen, .selectAccount the account picker
 ) { result in
     switch result {
     case .success(let signInResult):
